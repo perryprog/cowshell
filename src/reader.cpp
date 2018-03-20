@@ -2265,12 +2265,11 @@ static int read_i() {
             wcstring_list_t argv(1, command);
             event_fire_generic(L"fish_preexec", &argv);
 
-            const wcstring options[7] = {
+            const wcstring options[6] = {
                     L" | cowsay -n | lolcat",
                     L" | cowsay -f (ls /usr/local/Cellar/cowsay/3.04/share/cows/*.cow | gshuf -n 1)",
                     L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1)",
                     L" | cowsay -n | cowsay -n",
-                    L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1) | cowsay -n",
                     L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1) | cowsay -n",
                     L" | lolcat"
             };
