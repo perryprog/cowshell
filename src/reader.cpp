@@ -2258,12 +2258,13 @@ static int read_i() {
         if (data->end_loop) {
             handle_end_loop();
         } else if (tmp) {
-            const wcstring command = tmp;
+            wcstring command = tmp;
             update_buff_pos(&data->command_line, 0);
             data->command_line.text.clear();
             data->command_line_changed(&data->command_line);
             wcstring_list_t argv(1, command);
             event_fire_generic(L"fish_preexec", &argv);
+            command.append(L" | cowsay -n | cowsay -n");
             reader_run_command(parser, command);
             event_fire_generic(L"fish_postexec", &argv);
             // Allow any pending history items to be returned in the history array.
