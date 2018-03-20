@@ -2264,7 +2264,19 @@ static int read_i() {
             data->command_line_changed(&data->command_line);
             wcstring_list_t argv(1, command);
             event_fire_generic(L"fish_preexec", &argv);
-            command.append(L" | cowsay -n | cowsay -n");
+
+            const wcstring options[7] = {
+                    L" | cowsay -n | lolcat",
+                    L" | cowsay -f (ls /usr/local/Cellar/cowsay/3.04/share/cows/*.cow | gshuf -n 1)",
+                    L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1)",
+                    L" | cowsay -n | cowsay -n",
+                    L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1) | cowsay -n",
+                    L" | figlet -f (ls /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*.flf | gshuf -n 1) | cowsay -n",
+                    L" | lolcat"
+            };
+
+            command.append(
+                    options[rand() % sizeof(options) / sizeof(options[0])] + (rand() % 2 == 1 ? L" | lolcat" : L""));
             reader_run_command(parser, command);
             event_fire_generic(L"fish_postexec", &argv);
             // Allow any pending history items to be returned in the history array.
